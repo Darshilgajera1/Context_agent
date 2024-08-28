@@ -1,6 +1,6 @@
 # PdfBot
 
-![PdfBot Interface](./Context_agent/Image.png)
+![PdfBot Interface](./images/Image.png)
 
 ## Welcome to PdfBot
 
