@@ -222,12 +222,19 @@ def navbar() -> None:
             icons=['key', 'person-plus', 'question', 'key'],
             orientation="horizontal",
             styles={
-                "container": {"padding": "0!important", "background-color": "#fafafa"},
-                "icon": {"color": "red", "font-size": "18px"},
-                "nav-link": {"font-size": "18px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
-                "nav-link-selected": {"background-color": "black"},
+                "container": {"padding": "0!important", "background-color": "#262730"},  # Dark gray
+                "icon": {"color": "white", "font-size": "18px"},  # White icons
+                "nav-link": {
+                    "font-size": "18px",
+                    "text-align": "left",
+                    "margin": "0px",
+                    "--hover-color": "#333333",  # Darker hover
+                    "color": "white",  # White text
+                },
+                "nav-link-selected": {"background-color": "#444444", "color": "white"},  # Selected state
             }
         )
+
         return selected
 
 def navbar1() -> None:

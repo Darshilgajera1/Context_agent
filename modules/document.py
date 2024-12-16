@@ -189,23 +189,42 @@ def doc_navbar() -> None:
             icons=['file-earmark-pdf','file-earmark-arrow-up',],
             orientation="horizontal",
             styles={
-                "container": {"padding": "0!important", "background-color": "#fafafa"},
-                "icon": {"color": "red", "font-size": "18px"}, 
-                "nav-link": {"font-size": "18px", "text-align": "left", "margin":"0px","--hover-color": "#eee"},
-                "nav-link-selected": {"background-color": "black"},
-                "nav-item":{"margin-left":"10px","margin-right":"10px"}
-            }
+                    "container": {"padding": "0!important", "background-color": "#262730"},  # Dark gray for dark mode
+                    "menu-icon": {"color": "white", "font-size": "34px"},  # Adjust icon color to white
+                    "menu-title": {"font-size": "34px", "text-align": "center", "font-weight": "bold", "color": "white"},  # White title
+                    "icon": {"color": "white", "font-size": "22px"},  # White icons
+                    "nav-link": {
+                        "font-size": "18px",
+                        "text-align": "left",
+                        "margin": "0px",
+                        "--hover-color": "#333333",  # Dark hover color
+                        "color": "white",  # Default link text color
+                    },
+                    "nav-link-selected": {"background-color": "#444444", "color": "white"},  # Darker gray for selected link
+                    "title": {"font-size": "24px", "color": "white"}  # White text for title
+                }
         )
         return selected
 
 def build_doc_ui():
-    if st.session_state['log_in'] == False:
-        st.error("Please Login/SignUp to check and Upload Documents")
-    else:
-        selected = doc_navbar()
+    # Check login status
+    if not st.session_state.get('log_in', False):
+        st.error("Please Login/SignUp to access documents.")
+        return
 
-        if selected == "Upload Document":
-            upload_doc()
-        if selected == "Documents":
-            getDocList()
-            showDocs()
+    # Check for required API Keys
+    if not st.session_state.get('OPEN_AI_KEY'):
+        st.error("Please enter your OpenAI Key in the Credentials tab.")
+        return
+
+    if not st.session_state.get('PINECONE_API_KEY'):
+        st.error("Please enter your Pinecone API Key in the Credentials tab.")
+        return
+
+    # Proceed with the document navigation
+    selected = doc_navbar()
+    if selected == "Upload Document":
+        upload_doc()
+    elif selected == "Documents":
+        getDocList()
+        showDocs()
